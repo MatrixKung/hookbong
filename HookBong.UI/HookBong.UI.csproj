@@ -124,7 +124,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HookBong.Core\HookBong.Core.csproj">
+    <ProjectReference Include="..\HookBong.Core\HookBong.Core.csproj">
       <Project>{e11f0550-9838-4b5c-8ef8-30aa2206c3da}</Project>
       <Name>HookBong.Core</Name>
     </ProjectReference>
