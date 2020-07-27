@@ -1,6 +1,7 @@
 ﻿using HookBong.Core;
 using HookBong.Core.Utils;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -81,7 +82,7 @@ namespace HookBong.UI
             RefreshProcesses();
         }
 
-        private Dictionary<int, List<HookAnalysisResult>> _cachedAnalyses = new Dictionary<int, List<HookAnalysisResult>>();
+        private Dictionary<int, ConcurrentBag<HookAnalysisResult>> _cachedAnalyses = new Dictionary<int, ConcurrentBag<HookAnalysisResult>>();
 
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {

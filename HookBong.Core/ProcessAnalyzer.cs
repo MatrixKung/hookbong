@@ -1,5 +1,6 @@
 ﻿using HookBong.Core.Utils;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -34,15 +35,15 @@ namespace HookBong.Core
                 EMapper.AddEntry(mod);
         }
 
-        public List<HookAnalysisResult> AnalyzeFull()
+        public ConcurrentBag<HookAnalysisResult> AnalyzeFull()
         {
-            var result = new List<HookAnalysisResult>();
+            var result = new ConcurrentBag<HookAnalysisResult>();
 
             Parallel.ForEach(MReader.ModuleList, (m) =>
             {
-                foreach (var analyzer in Analyses)
+                foreach (var r in Analyses.Select(analyzer => analyzer.AnalyzeModule(this, m)).SelectMany(a => a))
                 {
-                    result.AddRange(analyzer.AnalyzeModule(this, m));
+                    result.Add(r);
                 }
             });
 
