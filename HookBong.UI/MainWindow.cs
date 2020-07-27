@@ -157,7 +157,6 @@ namespace HookBong.UI
 
             origDisass.Text = DisassemblyView.DisassembleToLines(new byte[]{0xCC}, 0).First();
             hookedDisass.Text = DisassemblyView.DisassembleToLines(new byte[]{0x90}, 0).First();
-
         }
 
         private void backbutton_Click(object sender, EventArgs e)
