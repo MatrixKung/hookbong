@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label processListLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.processList = new System.Windows.Forms.ListBox();
             this.analyzeButton = new System.Windows.Forms.Button();
             this.analysisGrid = new System.Windows.Forms.DataGridView();
@@ -57,7 +57,7 @@
             this.origDisass = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.backbutton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.analyzelabel = new System.Windows.Forms.Label();
             processListLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.analysisGrid)).BeginInit();
             this.maintabcontrol.SuspendLayout();
@@ -129,8 +129,8 @@
             // VirtualAddress
             // 
             this.VirtualAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VirtualAddress.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VirtualAddress.DefaultCellStyle = dataGridViewCellStyle7;
             this.VirtualAddress.HeaderText = "Virtual Address";
             this.VirtualAddress.Name = "VirtualAddress";
             this.VirtualAddress.ReadOnly = true;
@@ -139,8 +139,8 @@
             // ModuleName
             // 
             this.ModuleName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ModuleName.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModuleName.DefaultCellStyle = dataGridViewCellStyle8;
             this.ModuleName.HeaderText = "Module Name";
             this.ModuleName.Name = "ModuleName";
             this.ModuleName.ReadOnly = true;
@@ -149,8 +149,8 @@
             // HookType
             // 
             this.HookType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HookType.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HookType.DefaultCellStyle = dataGridViewCellStyle9;
             this.HookType.HeaderText = "HookType";
             this.HookType.Name = "HookType";
             this.HookType.ReadOnly = true;
@@ -159,8 +159,8 @@
             // OriginalData
             // 
             this.OriginalData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OriginalData.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OriginalData.DefaultCellStyle = dataGridViewCellStyle10;
             this.OriginalData.HeaderText = "Original Data";
             this.OriginalData.Name = "OriginalData";
             this.OriginalData.ReadOnly = true;
@@ -168,8 +168,8 @@
             // PatchedData
             // 
             this.PatchedData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PatchedData.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PatchedData.DefaultCellStyle = dataGridViewCellStyle11;
             this.PatchedData.HeaderText = "Patched Data";
             this.PatchedData.Name = "PatchedData";
             this.PatchedData.ReadOnly = true;
@@ -177,8 +177,8 @@
             // AdditionalInfo
             // 
             this.AdditionalInfo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AdditionalInfo.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AdditionalInfo.DefaultCellStyle = dataGridViewCellStyle12;
             this.AdditionalInfo.HeaderText = "Additional Information";
             this.AdditionalInfo.Name = "AdditionalInfo";
             this.AdditionalInfo.ReadOnly = true;
@@ -351,21 +351,21 @@
             this.backbutton.UseVisualStyleBackColor = true;
             this.backbutton.Click += new System.EventHandler(this.backbutton_Click);
             // 
-            // label2
+            // analyzelabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(605, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "double click to disass";
+            this.analyzelabel.AutoSize = true;
+            this.analyzelabel.Location = new System.Drawing.Point(605, 28);
+            this.analyzelabel.Name = "analyzelabel";
+            this.analyzelabel.Size = new System.Drawing.Size(140, 13);
+            this.analyzelabel.TabIndex = 9;
+            this.analyzelabel.Text = "double click to inspect hook";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 617);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.analyzelabel);
             this.Controls.Add(this.backbutton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.currentProcessLabel);
@@ -412,6 +412,6 @@
         private System.Windows.Forms.TextBox hookedDisass;
         private System.Windows.Forms.TextBox origDisass;
         private System.Windows.Forms.TextBox hookedBytes;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label analyzelabel;
     }
 }

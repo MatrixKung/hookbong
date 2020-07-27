@@ -92,6 +92,8 @@ namespace HookBong.UI
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0; //exit disass window
+            analyzelabel.Visible = true;
+
 
             analyzeButton.Enabled = true;
 
@@ -112,6 +114,7 @@ namespace HookBong.UI
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
+            _cachedAnalyses.Clear();
             RefreshProcesses();
         }
 
@@ -119,6 +122,7 @@ namespace HookBong.UI
         private void analyzeButton_Click(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0; //exit disass window
+            analyzelabel.Visible = true;
 
             analysisGrid.Rows.Clear();
             var targetProcess = Processes.First(p => p.Id == int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1])); //kinda yikes ngl
@@ -149,6 +153,8 @@ namespace HookBong.UI
         private void analysisGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             maintabcontrol.SelectedIndex = 1;
+            analyzelabel.Visible = false;
+
             backbutton.Enabled = true;
             backbutton.Visible = true;
 
@@ -163,6 +169,7 @@ namespace HookBong.UI
         private void backbutton_Click(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0;
+            analyzelabel.Visible = true;
             backbutton.Enabled = false;
             backbutton.Visible = false;
         }
