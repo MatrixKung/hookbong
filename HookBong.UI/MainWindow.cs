@@ -83,6 +83,7 @@ namespace HookBong.UI
             maintabcontrol.ItemSize = new Size(0, 1);
             maintabcontrol.SizeMode = TabSizeMode.Fixed;
             backbutton.Visible = false;
+            analysisGrid.Rows.Add("", "", "", "", "", "Chose a process to be analyzed.");
             RefreshProcesses();
         }
 
@@ -157,7 +158,6 @@ namespace HookBong.UI
 
             origDisass.Text = DisassemblyView.DisassembleToLines(new byte[]{0xCC}, 0).First();
             hookedDisass.Text = DisassemblyView.DisassembleToLines(new byte[]{0x90}, 0).First();
-
         }
 
         private void backbutton_Click(object sender, EventArgs e)
