@@ -87,6 +87,10 @@
     <Reference Include="AsmResolver.PE.File">
       <HintPath>..\Lib\AsmResolver.PE.File.dll</HintPath>
     </Reference>
+    <Reference Include="Iced, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5baba79f4264913b">
+      <HintPath>..\packages\Iced.1.8.0\lib\net45\Iced.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -101,6 +105,7 @@
     <Compile Include="Analyses\IAT.cs" />
     <Compile Include="Analyses\Inline.cs" />
     <Compile Include="Analyses\PagePermission.cs" />
+    <Compile Include="DisassemblyView.cs" />
     <Compile Include="HookAnalysisResult.cs" />
     <Compile Include="IHookAnalysis.cs" />
     <Compile Include="ProcessAnalyzer.cs" />
@@ -109,6 +114,9 @@
     <Compile Include="Utils\ExportMapper.cs" />
     <Compile Include="Utils\MemoryReader.cs" />
     <Compile Include="Utils\ModuleReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

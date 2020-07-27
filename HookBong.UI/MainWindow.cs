@@ -79,6 +79,10 @@ namespace HookBong.UI
         public MainWindow()
         {
             InitializeComponent();
+            maintabcontrol.Appearance = TabAppearance.FlatButtons;
+            maintabcontrol.ItemSize = new Size(0, 1);
+            maintabcontrol.SizeMode = TabSizeMode.Fixed;
+            backbutton.Visible = false;
             RefreshProcesses();
         }
 
@@ -86,17 +90,21 @@ namespace HookBong.UI
 
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            maintabcontrol.SelectedIndex = 0; //exit disass window
+
             analyzeButton.Enabled = true;
 
             analysisGrid.Rows.Clear();
 
-            var pid = int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1]);
+            var pid = int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1]);//kinda yikes ngl
 
             if (_cachedAnalyses.ContainsKey(pid)) //load cached analysis
-            {
                 foreach (var entry in _cachedAnalyses[pid])
                     analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
-            }
+            
+            else
+                analysisGrid.Rows.Add("", "", "", "", "", "Process not yet analyzed.");
+            
 
             currentProcessLabel.Text = $@"Current Process: {((ListBox)sender).SelectedItem}";
         }
@@ -109,6 +117,8 @@ namespace HookBong.UI
 
         private void analyzeButton_Click(object sender, EventArgs e)
         {
+            maintabcontrol.SelectedIndex = 0; //exit disass window
+
             analysisGrid.Rows.Clear();
             var targetProcess = Processes.First(p => p.Id == int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1])); //kinda yikes ngl
             var analysisEngine = new ProcessAnalyzer(targetProcess);
@@ -132,6 +142,29 @@ namespace HookBong.UI
                 processList.Items.Add($"{p.ProcessName} [{p.Id}]");
             }
 
+        }
+
+        //todo: actually implement this
+        private void analysisGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            maintabcontrol.SelectedIndex = 1;
+            backbutton.Enabled = true;
+            backbutton.Visible = true;
+
+            origBytes.Text = "bytes";
+            hookedBytes.Text = "bytes";
+
+
+            origDisass.Text = DisassemblyView.DisassembleToLines(new byte[]{0xCC}, 0).First();
+            hookedDisass.Text = DisassemblyView.DisassembleToLines(new byte[]{0x90}, 0).First();
+
+        }
+
+        private void backbutton_Click(object sender, EventArgs e)
+        {
+            maintabcontrol.SelectedIndex = 0;
+            backbutton.Enabled = false;
+            backbutton.Visible = false;
         }
     }
 }
