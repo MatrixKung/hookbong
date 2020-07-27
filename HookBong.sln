@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookBong.Core", "HookBong.Core\HookBong.Core.csproj", "{E11F0550-9838-4B5C-8EF8-30AA2206C3DA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookBong.UI", "HookBong.UI\HookBong.UI.csproj", "{7C88E9A1-7AC7-4D29-9254-553A15B0481A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookBong.Core", "HookBong.Core\HookBong.Core.csproj", "{E11F0550-9838-4B5C-8EF8-30AA2206C3DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
