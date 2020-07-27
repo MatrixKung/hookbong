@@ -6,8 +6,9 @@ Detect hooks inside a loaded process.
 - displays them in somewhat fancy UI
 
 # todo
-- iat/eat hook detection seems kinda weird rn (detects stuff it shouldnt)
+- iat/eat hook detection dont account for forwarded exports properly
 - disassembly view and page permission hooks
+- proper wow64 bullshit
 
 # special thanks to
 - https://github.com/Washi1337 - AsmResolver
