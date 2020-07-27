@@ -109,7 +109,9 @@ namespace HookBong.UI
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0; //exit disass window
-            analyzelabel.Visible = false;
+            analyzelabel.Visible = true;
+            backbutton.Visible = false;
+
 
             analyzeButton.Enabled = true;
             analysisGrid.Rows.Clear();
@@ -134,7 +136,9 @@ namespace HookBong.UI
         private void analyzeButton_Click(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0; //exit disass window
-            analyzelabel.Visible = false;
+            analyzelabel.Visible = true;
+            backbutton.Visible = false;
+
 
 
             analysisGrid.Rows.Clear();
@@ -158,10 +162,11 @@ namespace HookBong.UI
         private void analysisGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             maintabcontrol.SelectedIndex = 1;
-            analyzelabel.Visible = true;
+            analyzelabel.Visible = false;
 
-            backbutton.Enabled = true;
             backbutton.Visible = true;
+            backbutton.Enabled = true;
+
 
             origBytes.Text = "bytes";
             hookedBytes.Text = "bytes";
@@ -174,7 +179,7 @@ namespace HookBong.UI
         private void backbutton_Click(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0;
-            analyzelabel.Visible = false;
+            analyzelabel.Visible = true;
 
             backbutton.Enabled = false;
             backbutton.Visible = false;
