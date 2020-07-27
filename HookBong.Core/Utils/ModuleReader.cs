@@ -2,6 +2,7 @@
 using AsmResolver.PE.File;
 using AsmResolver.PE.File.Headers;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace HookBong.Core.Utils
     {
         private Process _process;
 
-        public List<CopiedProcessModule> ModuleList = new List<CopiedProcessModule>();
+        public ConcurrentBag<CopiedProcessModule> ModuleList = new ConcurrentBag<CopiedProcessModule>();
 
         public ModuleReader(Process process)
         {
@@ -24,6 +25,34 @@ namespace HookBong.Core.Utils
 
         public void Read()
         {
+            var moduleList = _process.Modules.Cast<ProcessModule>().ToList();
+
+            if(moduleList.Count == 0) //no modules or access
+                return;
+
+            Parallel.ForEach(moduleList, (m) =>
+            {
+                try
+                {
+                    var fileOnDisk = PEFile.FromFile(m.FileName);
+                    var imageOnDisk = PEImage.FromFile(fileOnDisk);
+                    if (!imageOnDisk.Characteristics.HasFlag(Characteristics.Image))
+                        return;
+
+                    ModuleList.Add(new CopiedProcessModule(_process, m.BaseAddress, m.ModuleMemorySize)
+                    {
+                        ModuleName = m.ModuleName,
+                        ImageFileOnDisk = fileOnDisk,
+                        ImageOnDisk = imageOnDisk
+                    });
+                }
+                catch (AccessViolationException)
+                {
+                    //do nothing, could be something malicious
+                }
+            });
+
+            /*
             try
             {
                 foreach (ProcessModule module in _process.Modules)
@@ -51,7 +80,7 @@ namespace HookBong.Core.Utils
             catch (Win32Exception)
             {
                 //do nothing again, we probably just don't have access. TODO: log this somehow!
-            }
+            }*/
         }
     }
 }
