@@ -52,16 +52,16 @@ namespace HookBong.UI
             processList.Items.Clear();
 
             var ps = Process.GetProcesses();
-            foreach (var p in ps)
+            Parallel.ForEach(ps, (p) =>
             {
                 if (p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == -1)
-                    continue;
+                    return;
 
                 if (!ProcessFilter(p))
-                    continue;
+                    return;
 
                 Processes.Add(p);
-            }
+            });
 
             foreach (var process in Processes)
                 processList.Items.Add($"{process.ProcessName} [{process.Id}]");
