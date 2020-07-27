@@ -66,15 +66,37 @@ namespace HookBong.UI
                 processList.Items.Add($"{process.ProcessName} [{process.Id}]");
         }
 
+        protected override void OnResizeBegin(EventArgs e) {
+            SuspendLayout();
+            base.OnResizeBegin(e);
+        }
+        protected override void OnResizeEnd(EventArgs e) {
+            ResumeLayout();
+            base.OnResizeEnd(e);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             RefreshProcesses();
         }
 
+        private Dictionary<int, List<HookAnalysisResult>> _cachedAnalyses = new Dictionary<int, List<HookAnalysisResult>>();
+
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
             analyzeButton.Enabled = true;
+
+            analysisGrid.Rows.Clear();
+
+            var pid = int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1]);
+
+            if (_cachedAnalyses.ContainsKey(pid)) //load cached analysis
+            {
+                foreach (var entry in _cachedAnalyses[pid])
+                    analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
+            }
+
             currentProcessLabel.Text = $@"Current Process: {((ListBox)sender).SelectedItem}";
         }
 
@@ -83,12 +105,23 @@ namespace HookBong.UI
             RefreshProcesses();
         }
 
+
         private void analyzeButton_Click(object sender, EventArgs e)
         {
             analysisGrid.Rows.Clear();
             var targetProcess = Processes.First(p => p.Id == int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1])); //kinda yikes ngl
             var analysisEngine = new ProcessAnalyzer(targetProcess);
-            foreach (var entry in analysisEngine.AnalyzeFull())
+            
+            var ana = analysisEngine.AnalyzeFull();
+
+
+            if (_cachedAnalyses.ContainsKey(targetProcess.Id)) //always add latest analysis
+                _cachedAnalyses.Remove(targetProcess.Id);
+            
+
+            _cachedAnalyses.Add(targetProcess.Id,ana);
+
+            foreach (var entry in ana)
                 analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
         }
 

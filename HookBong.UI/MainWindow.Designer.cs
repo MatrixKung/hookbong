@@ -38,15 +38,15 @@
             this.processList = new System.Windows.Forms.ListBox();
             this.analyzeButton = new System.Windows.Forms.Button();
             this.analysisGrid = new System.Windows.Forms.DataGridView();
-            this.currentProcessLabel = new System.Windows.Forms.Label();
-            this.refreshButton = new System.Windows.Forms.Button();
-            this.SearchBox = new System.Windows.Forms.TextBox();
             this.VirtualAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ModuleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HookType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OriginalData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PatchedData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdditionalInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.currentProcessLabel = new System.Windows.Forms.Label();
+            this.refreshButton = new System.Windows.Forms.Button();
+            this.SearchBox = new System.Windows.Forms.TextBox();
             processListLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.analysisGrid)).BeginInit();
             this.SuspendLayout();
@@ -106,40 +106,8 @@
             this.analysisGrid.Location = new System.Drawing.Point(237, 44);
             this.analysisGrid.Name = "analysisGrid";
             this.analysisGrid.ReadOnly = true;
-            this.analysisGrid.Size = new System.Drawing.Size(799, 561);
+            this.analysisGrid.Size = new System.Drawing.Size(813, 561);
             this.analysisGrid.TabIndex = 3;
-            // 
-            // currentProcessLabel
-            // 
-            this.currentProcessLabel.AutoSize = true;
-            this.currentProcessLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentProcessLabel.Location = new System.Drawing.Point(233, 12);
-            this.currentProcessLabel.Name = "currentProcessLabel";
-            this.currentProcessLabel.Size = new System.Drawing.Size(192, 22);
-            this.currentProcessLabel.TabIndex = 4;
-            this.currentProcessLabel.Text = "Current Process: None";
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.refreshButton.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshButton.Location = new System.Drawing.Point(12, 554);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(219, 51);
-            this.refreshButton.TabIndex = 5;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
-            // SearchBox
-            // 
-            this.SearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.SearchBox.Location = new System.Drawing.Point(13, 44);
-            this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Size = new System.Drawing.Size(218, 20);
-            this.SearchBox.TabIndex = 6;
-            this.SearchBox.TextChanged += new System.EventHandler(this.Searchbox_textChanged);
             // 
             // VirtualAddress
             // 
@@ -197,6 +165,38 @@
             this.AdditionalInfo.HeaderText = "Additional Information";
             this.AdditionalInfo.Name = "AdditionalInfo";
             this.AdditionalInfo.ReadOnly = true;
+            // 
+            // currentProcessLabel
+            // 
+            this.currentProcessLabel.AutoSize = true;
+            this.currentProcessLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentProcessLabel.Location = new System.Drawing.Point(233, 12);
+            this.currentProcessLabel.Name = "currentProcessLabel";
+            this.currentProcessLabel.Size = new System.Drawing.Size(192, 22);
+            this.currentProcessLabel.TabIndex = 4;
+            this.currentProcessLabel.Text = "Current Process: None";
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.refreshButton.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refreshButton.Location = new System.Drawing.Point(12, 554);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(219, 51);
+            this.refreshButton.TabIndex = 5;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
+            // SearchBox
+            // 
+            this.SearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchBox.Location = new System.Drawing.Point(13, 44);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Size = new System.Drawing.Size(218, 20);
+            this.SearchBox.TabIndex = 6;
+            this.SearchBox.TextChanged += new System.EventHandler(this.Searchbox_textChanged);
             // 
             // MainWindow
             // 
