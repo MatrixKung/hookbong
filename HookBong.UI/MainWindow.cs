@@ -51,10 +51,8 @@ namespace HookBong.UI
             processList.Items.Clear();
 
             var ps = Process.GetProcesses();
-            for (int i = 0; i < ps.Length; i++)
+            foreach (var p in ps)
             {
-                var p = ps[i];
-
                 if (p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == -1)
                     continue;
 
@@ -77,7 +75,7 @@ namespace HookBong.UI
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
             analyzeButton.Enabled = true;
-            currentProcessLabel.Text = $"Current Process: {((ListBox)sender).SelectedItem}";
+            currentProcessLabel.Text = $@"Current Process: {((ListBox)sender).SelectedItem}";
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -88,7 +86,7 @@ namespace HookBong.UI
         private void analyzeButton_Click(object sender, EventArgs e)
         {
             analysisGrid.Rows.Clear();
-            var targetProcess = Processes[processList.SelectedIndex];
+            var targetProcess = Processes.First(p => p.Id == int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1])); //kinda yikes ngl
             var analysisEngine = new ProcessAnalyzer(targetProcess);
             foreach (var entry in analysisEngine.AnalyzeFull())
                 analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
@@ -96,11 +94,13 @@ namespace HookBong.UI
 
         private void Searchbox_textChanged(object sender, EventArgs e)
         {
-            Processes = Processes.Where(p => p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
-
             processList.Items.Clear();
-            foreach (var process in Processes)
-                processList.Items.Add($"{process.ProcessName} [{process.Id}]");
+
+            foreach (var p in Processes.Where(p => p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) != -1).Where(ProcessFilter))
+            {
+                processList.Items.Add($"{p.ProcessName} [{p.Id}]");
+            }
+
         }
     }
 }

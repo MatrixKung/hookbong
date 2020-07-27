@@ -38,9 +38,17 @@ namespace HookBong.Core
         {
             var result = new List<HookAnalysisResult>();
 
-            foreach (var module in MReader.ModuleList)
+            Parallel.ForEach(MReader.ModuleList, (m) =>
+            {
                 foreach (var analyzer in Analyses)
-                    result.AddRange(analyzer.AnalyzeModule(this, module));
+                {
+                    result.AddRange(analyzer.AnalyzeModule(this, m));
+                }
+            });
+
+            /*foreach (var module in MReader.ModuleList)
+                foreach (var analyzer in Analyses)
+                    result.AddRange(analyzer.AnalyzeModule(this, module));*/
 
             return result;
         }
