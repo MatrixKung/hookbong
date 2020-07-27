@@ -14,7 +14,7 @@ namespace HookBong.Core.Analyses
 
             foreach (var importThunk in module.Image.Imports)
                 foreach (var symbol in importThunk.Symbols.Where(s => s.IsImportByName))
-                {
+                {   
                     if (!analyzer.EMapper.TryGetEntry(importThunk.Name, symbol.Name, out var expected))
                         continue;
                     var expectedAbs = (ulong)expected.Module.BaseAddress.ToInt64() + expected.Symbol.Address.Rva;

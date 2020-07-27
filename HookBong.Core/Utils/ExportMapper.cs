@@ -1,4 +1,5 @@
 ﻿using AsmResolver.PE.Exports;
+using AsmResolver.PE.File.Headers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,21 @@ namespace HookBong.Core.Utils
             var exports = processModule.Image.Exports;
             if (exports == null)
                 return;
-
             foreach (var export in exports.Entries)
             {
+                var exportDirectory = processModule.ImageFileOnDisk.OptionalHeader.DataDirectories[OptionalHeader.ExportDirectoryIndex];
+
+                // forwarded exports can fuck off for now
+                // TODO: fix this garbage
+                if (export.Address.Rva >= exportDirectory.VirtualAddress && export.Address.Rva < exportDirectory.VirtualAddress + exportDirectory.Size)
+                    continue;
+
                 var entry = new ExportEntry
                 {
                     Module = processModule,
                     Symbol = export
                 };
-                ReverseExports[$"{processModule.ModuleName}!{export.Name}"] = entry;
+                ReverseExports[$"{processModule.ModuleName}.{export.Name}"] = entry;
                 Exports[IntPtr.Add(processModule.BaseAddress, (int)export.Address.Rva)] = entry;
             }
         }
@@ -43,7 +50,7 @@ namespace HookBong.Core.Utils
 
         public bool TryGetEntry(string module, string name, out ExportEntry value)
         {
-            return ReverseExports.TryGetValue($"{module}!{name}", out value);
+            return ReverseExports.TryGetValue($"{module}.{name}", out value);
         }
     }
 }

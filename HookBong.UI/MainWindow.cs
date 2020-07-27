@@ -22,6 +22,7 @@ namespace HookBong.UI
         public static extern bool IsWow64Process([In] IntPtr processHandle, [Out, MarshalAs(UnmanagedType.Bool)] out bool wow64Process);
 
         public List<Process> Processes = new List<Process>();
+        public List<int> IndexMap = new List<int>();
 
         public bool ProcessFilter(Process p)
         {
@@ -46,25 +47,41 @@ namespace HookBong.UI
             }
         }
 
+        public void RefreshProcessList()
+        {
+            processList.Items.Clear();
+            IndexMap.Clear();
+
+            for (var i = 0; i < Processes.Count; i++)
+            {
+                var p = Processes[i];
+                if (p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == -1)
+                    continue;
+                if (!ProcessFilter(p))
+                    continue;
+                IndexMap.Add(i);
+                processList.Items.Add($"{p.ProcessName} [{p.Id}]");
+            }
+        }
+
         public void RefreshProcesses()
         {
             Processes.Clear();
             processList.Items.Clear();
 
             var ps = Process.GetProcesses();
-            Parallel.ForEach(ps, (p) =>
+            foreach (var p in ps)
             {
                 if (p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == -1)
-                    return;
+                    continue;
 
                 if (!ProcessFilter(p))
-                    return;
+                    continue;
 
                 Processes.Add(p);
-            });
+            }
 
-            foreach (var process in Processes)
-                processList.Items.Add($"{process.ProcessName} [{process.Id}]");
+            RefreshProcessList();
         }
 
         protected override void OnResizeBegin(EventArgs e) {
@@ -92,17 +109,13 @@ namespace HookBong.UI
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
             maintabcontrol.SelectedIndex = 0; //exit disass window
-
             analyzeButton.Enabled = true;
-
             analysisGrid.Rows.Clear();
 
-            var pid = int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1]);//kinda yikes ngl
-
+            var pid = Processes[IndexMap[processList.SelectedIndex]].Id;
             if (_cachedAnalyses.ContainsKey(pid)) //load cached analysis
                 foreach (var entry in _cachedAnalyses[pid])
                     analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
-            
             else
                 analysisGrid.Rows.Add("", "", "", "", "", "Process not yet analyzed.");
             
@@ -121,14 +134,12 @@ namespace HookBong.UI
             maintabcontrol.SelectedIndex = 0; //exit disass window
 
             analysisGrid.Rows.Clear();
-            var targetProcess = Processes.First(p => p.Id == int.Parse(processList.SelectedItem.ToString().Split('[', ']')[1])); //kinda yikes ngl
+            var targetProcess = Processes[IndexMap[processList.SelectedIndex]];
             var analysisEngine = new ProcessAnalyzer(targetProcess);
             
             var ana = analysisEngine.AnalyzeFull();
 
-
             _cachedAnalyses[targetProcess.Id] = ana;
-
             foreach (var entry in ana)
                 analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
         }
@@ -136,13 +147,7 @@ namespace HookBong.UI
 
         private void Searchbox_textChanged(object sender, EventArgs e)
         {
-            processList.Items.Clear();
-
-            foreach (var p in Processes.Where(p => p.ProcessName.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) != -1).Where(ProcessFilter))
-            {
-                processList.Items.Add($"{p.ProcessName} [{p.Id}]");
-            }
-
+            RefreshProcessList();
         }
 
         //todo: actually implement this
