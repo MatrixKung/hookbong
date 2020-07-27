@@ -25,7 +25,15 @@ namespace HookBong.Core.Utils
 
         public void Read()
         {
-            var moduleList = _process.Modules.Cast<ProcessModule>().ToList();
+            var moduleList = new List<ProcessModule>();
+            try
+            {
+                moduleList = _process.Modules.Cast<ProcessModule>().ToList();
+            }
+            catch (Win32Exception)
+            {
+
+            }
 
             if(moduleList.Count == 0) //no modules or access
                 return;
@@ -39,7 +47,7 @@ namespace HookBong.Core.Utils
                     if (!imageOnDisk.Characteristics.HasFlag(Characteristics.Image))
                         return;
 
-                    ModuleList.Add(new CopiedProcessModule(_process, m.BaseAddress, m.ModuleMemorySize)
+                    ModuleList.Add(new CopiedProcessModule(_process, m.BaseAddress, m.ModuleMemorySize, m.ModuleName)
                     {
                         ModuleName = m.ModuleName,
                         ImageFileOnDisk = fileOnDisk,

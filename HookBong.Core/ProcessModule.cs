@@ -23,14 +23,14 @@ namespace HookBong.Core
         public PEFile ImageFileOnDisk;
         public IPEImage ImageOnDisk;
 
-        public CopiedProcessModule(Process process, IntPtr baseAddress, int size)
+        public CopiedProcessModule(Process process, IntPtr baseAddress, int size, string moduleName)
         {
             BaseAddress = baseAddress;
             using (var memoryReader = new MemoryReader(process))
             {
                 var copiedBytes = memoryReader.ReadMemory(baseAddress, size, out var bytesRead);
                 if (bytesRead != size)
-                    throw new AccessViolationException("Could not copy entire module into memory.");
+                    throw new AccessViolationException($"Could not copy entire {moduleName} into memory. Copied {bytesRead} bytes.");
                 var reader = new ByteArrayReader(copiedBytes);
 
                 // DOS header.

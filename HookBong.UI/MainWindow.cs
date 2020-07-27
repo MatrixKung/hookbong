@@ -116,15 +116,12 @@ namespace HookBong.UI
             var ana = analysisEngine.AnalyzeFull();
 
 
-            if (_cachedAnalyses.ContainsKey(targetProcess.Id)) //always add latest analysis
-                _cachedAnalyses.Remove(targetProcess.Id);
-            
-
-            _cachedAnalyses.Add(targetProcess.Id,ana);
+            _cachedAnalyses[targetProcess.Id] = ana;
 
             foreach (var entry in ana)
                 analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
         }
+
 
         private void Searchbox_textChanged(object sender, EventArgs e)
         {
