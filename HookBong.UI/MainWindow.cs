@@ -108,6 +108,9 @@ namespace HookBong.UI
 
         private void processList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (processList.SelectedIndex == -1)
+                return;
+
             maintabcontrol.SelectedIndex = 0; //exit disass window
             analyzelabel.Visible = true;
             backbutton.Visible = false;
