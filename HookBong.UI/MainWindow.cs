@@ -111,10 +111,7 @@ namespace HookBong.UI
             if (processList.SelectedIndex == -1)
                 return;
 
-            maintabcontrol.SelectedIndex = 0; //exit disass window
-            analyzelabel.Visible = true;
-            backbutton.Visible = false;
-
+            BackToMainview();
 
             analyzeButton.Enabled = true;
             analysisGrid.Rows.Clear();
@@ -135,15 +132,16 @@ namespace HookBong.UI
             RefreshProcesses();
         }
 
+        private void BackToMainview()
+        {
+            maintabcontrol.SelectedIndex = 0; //exit disass window
+            analyzelabel.Text = @"double click to inspect hook";
+            backbutton.Visible = false;
+        }
 
         private void analyzeButton_Click(object sender, EventArgs e)
         {
-            maintabcontrol.SelectedIndex = 0; //exit disass window
-            analyzelabel.Visible = true;
-            backbutton.Visible = false;
-
-
-
+            BackToMainview();
             analysisGrid.Rows.Clear();
             var targetProcess = Processes[IndexMap[processList.SelectedIndex]];
             var analysisEngine = new ProcessAnalyzer(targetProcess);
@@ -165,7 +163,7 @@ namespace HookBong.UI
         private void analysisGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             maintabcontrol.SelectedIndex = 1;
-            analyzelabel.Visible = false;
+            analyzelabel.Text =  analysisGrid.SelectedRows[0].Cells[0].Value.ToString();
 
             backbutton.Visible = true;
             backbutton.Enabled = true;
@@ -181,11 +179,7 @@ namespace HookBong.UI
 
         private void backbutton_Click(object sender, EventArgs e)
         {
-            maintabcontrol.SelectedIndex = 0;
-            analyzelabel.Visible = true;
-
-            backbutton.Enabled = false;
-            backbutton.Visible = false;
+            BackToMainview();
         }
     }
 }
