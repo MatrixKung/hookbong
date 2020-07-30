@@ -4,13 +4,10 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HookBong.UI
@@ -28,13 +25,13 @@ namespace HookBong.UI
         {
             try
             {
-                var hdl =  MemoryReader.OpenProcess(MemoryReader.ProcessAccessFlags.QueryLimitedInformation, false, p.Id);
+                var hdl =  NativeMethods.OpenProcess(ProcessAccessFlags.QueryLimitedInformation, false, p.Id);
                 if (hdl == IntPtr.Zero)
                     return false;
                 if (!Environment.Is64BitOperatingSystem)
                     return true;
                 IsWow64Process(hdl, out bool rv);
-                MemoryReader.CloseHandle(hdl);
+                NativeMethods.CloseHandle(hdl);
                 return rv == !Environment.Is64BitProcess;
             }
             catch (Win32Exception)
