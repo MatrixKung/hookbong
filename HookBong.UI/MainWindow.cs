@@ -149,6 +149,11 @@ namespace HookBong.UI
             var ana = analysisEngine.AnalyzeFull();
 
             _cachedAnalyses[targetProcess.Id] = ana;
+
+            if (ana.Count == 0)
+                analysisGrid.Rows.Add("", "", "", "", "", "No Hooks Found");
+
+
             foreach (var entry in ana)
                 analysisGrid.Rows.Add(entry.Location, entry.ModuleName, entry.Type, entry.OriginalData, entry.PatchedData, entry.AdditionalInfo);
         }
